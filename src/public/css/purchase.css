@@ -1,0 +1,142 @@
+/* ✅ 全体レイアウト */
+.purchase-container {
+    max-width: 1000px;
+    margin: 80px auto 20px;
+    padding: 20px;
+    display: flex;
+    justify-content: space-between;
+    gap: 40px;
+}
+
+/* ✅ 左側（商品詳細 + 支払い方法 + 配送先） */
+.purchase-left {
+    flex: 1;
+    max-width: 450px;
+}
+
+/* ✅ 商品画像 */
+.item-detail img {
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+}
+
+/* ✅ 商品名 */
+.item-detail h2 {
+    font-size: 22px;
+    margin-top: 10px;
+}
+
+/* ✅ 価格 */
+.item-detail .price {
+    font-size: 18px;
+    font-weight: bold;
+    margin-top: 5px;
+}
+
+/* ✅ フォーム */
+.form-group {
+    margin-top: 15px;
+}
+
+.form-group label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.form-group select,
+.form-group p {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    font-size: 16px;
+    background: #f9f9f9;
+}
+
+/* ✅ 配送先変更ボタン */
+.change-address {
+    display: inline-block;
+    margin-top: 10px;
+    padding: 8px 15px;
+    border: 1px solid #ff6f61;
+    border-radius: 6px;
+    color: #ff6f61;
+    font-weight: bold;
+    text-decoration: none;
+    text-align: center;
+}
+
+.change-address:hover {
+    background-color: #ff6f61;
+    color: white;
+}
+
+/* ✅ 右側（支払い情報 + 購入ボタン） */
+.purchase-right {
+    flex: 1;
+    max-width: 400px;
+    background: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* ✅ 購入情報 */
+.purchase-right h2 {
+    font-size: 20px;
+    margin-bottom: 15px;
+    border-bottom: 2px solid #ddd;
+    padding-bottom: 5px;
+}
+
+.summary p {
+    font-size: 16px;
+    margin-bottom: 10px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.summary span {
+    font-weight: bold;
+    color: #333;
+}
+
+/* ✅ 購入ボタン */
+.purchase-button {
+    width: 100%;
+    padding: 15px;
+    background-color: #ff6f61;
+    color: white;
+    text-align: center;
+    border: none;
+    border-radius: 6px;
+    font-size: 18px;
+    font-weight: bold;
+    cursor: pointer;
+    margin-top: 15px;
+}
+
+.purchase-button:hover {
+    background-color: #e55b4d;
+}
+
+/* ✅ レスポンシブ対応 */
+@media screen and (max-width: 850px) {
+    .purchase-container {
+        flex-direction: column;
+        align-items: center;
+        gap: 20px;
+    }
+
+    .purchase-left,
+    .purchase-right {
+        max-width: 100%;
+    }
+
+    .purchase-button {
+        font-size: 16px;
+        padding: 12px;
+    }
+}

@@ -1,0 +1,151 @@
+/* ✅ 商品詳細ページ全体レイアウト */
+.item-detail-container {
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    gap: 40px;
+    max-width: 1200px;
+    margin: 80px auto 20px;
+    padding: 20px;
+}
+
+/* ✅ 商品画像（左側） */
+.item-image {
+    flex: 1;
+    max-width: 450px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.item-image img {
+    width: 100%;
+    max-height: 450px;
+    object-fit: contain;
+    border-radius: 8px;
+}
+
+/* ✅ 商品情報（右側） */
+.item-info {
+    flex: 1;
+    max-width: 600px;
+}
+
+.item-info h1 {
+    font-size: 28px;
+    margin-bottom: 10px;
+}
+
+.brand {
+    font-size: 16px;
+    color: #777;
+}
+
+.price {
+    font-size: 22px;
+    font-weight: bold;
+    margin-bottom: 15px;
+}
+
+/* ✅ いいね & コメント */
+.icons {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 15px;
+}
+
+.like-button {
+    background: none;
+    border: none;
+    font-size: 20px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.like-button:hover {
+    opacity: 0.7;
+}
+
+/* ✅ 購入ボタン */
+.purchase-button {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    background-color: #ff6f61;
+    color: white;
+    text-align: center;
+    border-radius: 6px;
+    font-size: 18px;
+    font-weight: bold;
+    text-decoration: none;
+    margin-bottom: 20px;
+}
+
+.purchase-button:hover {
+    background-color: #e55b4d;
+}
+
+/* ✅ 商品説明 */
+.item-info h2,
+.item-info h3 {
+    font-size: 20px;
+    margin-top: 20px;
+}
+
+/* ✅ コメント */
+.comment {
+    background: #f9f9f9;
+    padding: 10px;
+    border-radius: 6px;
+    margin-bottom: 10px;
+}
+
+.comment strong {
+    font-size: 14px;
+    color: #333;
+}
+
+.comment-form {
+    margin-top: 10px;
+}
+
+.comment-form textarea {
+    width: 100%;
+    height: 80px;
+    padding: 10px;
+    border-radius: 6px;
+    border: 1px solid #ddd;
+}
+
+.comment-form button {
+    width: 100%;
+    padding: 10px;
+    background-color: #ff6f61;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-size: 16px;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+.comment-form button:hover {
+    background-color: #e55b4d;
+}
+
+/* ✅ PC (1400-1540px) */
+@media screen and (max-width: 1540px) {
+    .item-list {
+        grid-template-columns: repeat(4, 1fr);
+    }
+}
+
+/* ✅ タブレット (768-850px) */
+@media screen and (max-width: 850px) {
+    .item-list {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}

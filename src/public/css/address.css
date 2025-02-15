@@ -1,0 +1,63 @@
+.address-change-container {
+    max-width: 600px;
+    margin: 80px auto 20px;
+    /* ヘッダーの高さ分調整 */
+    padding: 20px;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+}
+
+.address-change-container h1 {
+    font-size: 24px;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.form-group input,
+.form-group textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 16px;
+}
+
+.update-button {
+    width: 100%;
+    padding: 10px;
+    background-color: #ff6f61;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.update-button:hover {
+    background-color: #e55b4d;
+}
+
+/* ✅ レスポンシブ対応 */
+@media screen and (max-width: 850px) {
+    .address-change-container {
+        max-width: 90%;
+        padding: 15px;
+    }
+
+    .form-group input,
+    .form-group textarea {
+        font-size: 14px;
+        padding: 8px;
+    }
+}

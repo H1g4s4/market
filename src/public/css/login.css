@@ -1,0 +1,98 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f9f9f9;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    flex-direction: column;
+}
+
+/* ✅ 「ログイン」とヘッダーの間隔を狭める */
+.login-container {
+    width: 100%;
+    max-width: 500px;
+    text-align: center;
+    padding: 20px;
+    margin-top: -700px;
+}
+
+.login-container h1 {
+    font-size: 32px;
+    margin-bottom: 15px;
+}
+
+.form-group {
+    margin-bottom: 20px;
+    text-align: left;
+}
+
+.form-group label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 8px;
+    font-size: 18px;
+}
+
+/* ✅ 入力ボックスとボタンのサイズを統一 */
+.form-group input,
+.login-button {
+    width: 100%;
+    padding: 14px;
+    border-radius: 6px;
+    font-size: 18px;
+    border: 2px solid #ccc;
+    box-sizing: border-box;
+}
+
+.form-group input:focus {
+    border-color: #007bff;
+    outline: none;
+}
+
+/* ✅ ログインボタンのスタイル調整 */
+.login-button {
+    background-color: red;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.login-button:hover {
+    background-color: #b30000;
+}
+
+/* ✅ パスワード入力ボックスとログインボタンの間隔を広げる */
+.form-group:last-of-type {
+    margin-bottom: 50px;
+}
+
+.register-link {
+    text-align: center;
+    margin-top: 20px;
+    font-size: 16px;
+}
+
+.register-link a {
+    color: #007bff;
+    text-decoration: none;
+    font-size: 18px;
+}
+
+.register-link a:hover {
+    text-decoration: underline;
+}
+
+.error-messages {
+    background-color: #f8d7da;
+    color: #721c24;
+    border: 2px solid #f5c6cb;
+    padding: 12px;
+    border-radius: 6px;
+    margin-bottom: 20px;
+    text-align: center;
+    font-size: 18px;
+}

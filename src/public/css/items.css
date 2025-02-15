@@ -1,0 +1,291 @@
+/* ✅ 全体のリセット */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+/* ✅ ヘッダーの調整 */
+.header-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    padding: 10px 20px;
+    background-color: #010000;
+    border-bottom: 1px solid #ddd;
+    position: fixed;
+    top: 0;
+    z-index: 1000;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    height: 70px;
+    box-sizing: border-box;
+}
+
+/* ✅ ヘッダー内のボタンの配置調整 */
+.header-buttons {
+    display: flex;
+    gap: 10px;
+}
+
+/* ✅ メインコンテンツの余白調整 */
+.container {
+    max-width: 1200px;
+    width: 100%;
+    margin: 0 auto;
+    padding: 70px 20px 20px;
+}
+
+/* ✅ タブメニュー（「おすすめ」「マイリスト」） */
+.tab-container {
+    width: 100%;
+    padding: 0;
+    margin-top: -10px;
+}
+
+/* ✅ タブの配置を完全左寄せに修正 */
+.tab-links {
+    display: flex;
+    justify-content: flex-start;
+    gap: 30px;
+    font-size: 16px;
+    font-weight: bold;
+    padding-left: 0;
+    margin-left: 20px;
+}
+
+.tab-links a {
+    text-decoration: none;
+    color: black;
+    padding: 5px 15px;
+}
+
+.tab-links a.active {
+    color: red;
+}
+
+/* ✅ 横幅いっぱいの下線 */
+.tab-border {
+    width: 100%;
+    height: 2px;
+    background-color: #ddd;
+    margin-top: 0;
+}
+
+/* ✅ 商品一覧ページの商品リストを横並びにする */
+.item-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    /* 自動調整 */
+    gap: 20px;
+    /* アイテム間の余白 */
+    justify-content: center;
+    /* 中央揃え */
+    margin-top: 20px;
+}
+
+/* ✅ 商品アイテムのスタイル */
+.item {
+    background: none;
+    padding: 10px;
+    text-align: left;
+    border: none;
+    border-radius: 0;
+    box-shadow: none;
+    transition: transform 0.2s ease-in-out;
+    width: 100%;
+    max-width: 220px;
+    /* 商品の最大幅を統一 */
+}
+
+/* ✅ ホバー時のアニメーション */
+.item-link:hover .item {
+    transform: scale(1.05);
+}
+
+/* ✅ 商品画像 */
+.item img {
+    width: 100%;
+    max-width: 200px;
+    height: auto;
+    border-radius: 8px;
+}
+
+.item-link {
+    text-decoration: none !important;
+    /* 商品リンク全体の下線を削除 */
+}
+
+/* ✅ 商品名 */
+.item p {
+    font-size: 14px;
+    color: #333;
+    margin-top: 10px;
+    text-align: left;
+    padding-left: 5px;
+    text-decoration: none !important;
+}
+
+/* ✅ "SOLD" 表示 */
+.sold {
+    font-size: 20px !important;
+    color: red !important;
+    font-weight: bold;
+    text-align: center;
+    display: block;
+    text-decoration: none !important;
+}
+
+/* ✅ 商品詳細ページの商品画像の調整 */
+.item-detail-container {
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    gap: 40px;
+    max-width: 1000px;
+    margin: 80px auto 20px;
+    padding: 20px;
+}
+
+.item-detail-container .item-image {
+    flex: 1;
+    max-width: 400px;
+    /* 最大幅を400pxに制限 */
+    height: auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.item-detail-container .item-image img {
+    width: 100%;
+    /* 親要素に収める */
+    max-height: 400px;
+    /* 最大高さを400pxに制限 */
+    object-fit: contain;
+    /* 画像の比率を維持しつつ収める */
+    border-radius: 8px;
+}
+
+/* ✅ 商品情報（右側） */
+.item-info {
+    flex: 1;
+    max-width: 500px;
+}
+
+.item-info h1 {
+    font-size: 28px;
+    margin-bottom: 10px;
+}
+
+.brand {
+    font-size: 16px;
+    color: #777;
+}
+
+.price {
+    font-size: 22px;
+    font-weight: bold;
+    margin-bottom: 15px;
+}
+
+.icons {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 15px;
+}
+
+.like-button {
+    background: none;
+    border: none;
+    font-size: 20px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.like-button:hover {
+    opacity: 0.7;
+}
+
+.purchase-button {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    background-color: #ff6f61;
+    color: white;
+    text-align: center;
+    border-radius: 6px;
+    font-size: 18px;
+    font-weight: bold;
+    text-decoration: none;
+    margin-bottom: 20px;
+}
+
+.purchase-button:hover {
+    background-color: #e55b4d;
+}
+
+/* ✅ コメント */
+.comment {
+    background: #f9f9f9;
+    padding: 10px;
+    border-radius: 6px;
+    margin-bottom: 10px;
+}
+
+.comment strong {
+    font-size: 14px;
+    color: #333;
+}
+
+.comment-form {
+    margin-top: 10px;
+}
+
+.comment-form textarea {
+    width: 100%;
+    height: 80px;
+    padding: 10px;
+    border-radius: 6px;
+    border: 1px solid #ddd;
+}
+
+.comment-form button {
+    width: 100%;
+    padding: 10px;
+    background-color: #ff6f61;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-size: 16px;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+.comment-form button:hover {
+    background-color: #e55b4d;
+}
+
+/* ✅ PC (1400-1540px) */
+@media screen and (max-width: 1540px) {
+    .item-list {
+        grid-template-columns: repeat(4, 1fr);
+    }
+}
+
+/* ✅ タブレット (768-850px) */
+@media screen and (max-width: 850px) {
+    .item-list {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+/* ✅ スマホ (600px以下) */
+@media screen and (max-width: 600px) {
+    .item-list {
+        grid-template-columns: repeat(1, 1fr);
+    }
+}

@@ -1,0 +1,86 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f9f9f9;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    flex-direction: column;
+}
+
+/* ✅ 画面中央に配置し、ボックスを外す */
+.register-page {
+    text-align: center;
+    width: 100%;
+    max-width: 500px;
+    padding: 20px;
+    margin-top: -500px;
+    /* ヘッダーと見出しの間隔を調整 */
+}
+
+.register-page h1 {
+    font-size: 32px;
+    margin-bottom: 15px;
+}
+
+.form-group {
+    margin-bottom: 20px;
+    text-align: left;
+}
+
+/* ✅ 入力ボックスとボタンのサイズを統一 */
+.form-group label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 8px;
+    font-size: 18px;
+}
+
+.form-group input,
+.register-button {
+    width: 100%;
+    padding: 14px;
+    border-radius: 6px;
+    font-size: 18px;
+    border: 2px solid #ccc;
+    box-sizing: border-box;
+}
+
+.form-group input:focus {
+    border-color: #007bff;
+    outline: none;
+}
+
+/* ✅ 登録ボタンのスタイル調整 */
+.register-button {
+    background-color: red;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    font-weight: bold;
+    margin-top: 30px;
+    /* 入力ボックスとの間隔を調整 */
+}
+
+.register-button:hover {
+    background-color: #b30000;
+}
+
+/* ✅ ログインリンクの調整 */
+.login-link {
+    text-align: center;
+    margin-top: 20px;
+    font-size: 16px;
+}
+
+.login-link a {
+    color: #007bff;
+    text-decoration: none;
+    font-size: 18px;
+}
+
+.login-link a:hover {
+    text-decoration: underline;
+}
