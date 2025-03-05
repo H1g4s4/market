@@ -1,4 +1,4 @@
-# コーチテックフリマ
+# COACHTECHフリマ
 
 ## 概要
 このプロジェクトは、ユーザーが商品を出品・購入できるフリマアプリです。  
@@ -17,7 +17,7 @@
 
 ## 環境構築
 **Dockerビルド**
-1. `git clone git@github.com:H1g4s4/Pigly.git`
+1. `git clone git@github.com:H1g4s4/market.git
 2. DockerDesktopアプリを立ち上げる
 3. `docker-compose up -d --build`
 
@@ -56,12 +56,13 @@ php artisan db:seedphp artisan storage:link
 - **MySQL**:10.3.39
 
 ## テーブル設計
-<img width="621" alt="スクリーンショット 2024-12-09 21 55 31" src="https://github.com/user-attachments/assets/8ad65635-ac3d-4e45-b272-94300e36c098">
-<img width="739" alt="スクリーンショット 2024-12-09 21 55 52" src="https://github.com/user-attachments/assets/4fdb9617-d057-46a8-8090-2f5a85cd0acd">
-<img width="744" alt="スクリーンショット 2024-12-09 21 56 04" src="https://github.com/user-attachments/assets/fcf67ce2-382f-427b-b029-d3ad42968c03">
+<img width="592" alt="スクリーンショット 2025-03-05 18 01 28" src="https://github.com/user-attachments/assets/577c23f8-3b04-4042-a5ff-36af6171b29d" />
+<img width="592" alt="スクリーンショット 2025-03-05 18 01 49" src="https://github.com/user-attachments/assets/3348650e-345f-47c6-b0ed-9f21d6f885ec" />
+<img width="592" alt="スクリーンショット 2025-03-05 18 02 06" src="https://github.com/user-attachments/assets/c52bafb6-9501-41eb-96d0-620fe639a6b3" />
+<img width="592" alt="スクリーンショット 2025-03-05 18 02 18" src="https://github.com/user-attachments/assets/1964ab07-2a3f-4ef9-a2ed-bd2bee7f7789" />
 
 ## ER図
-<img width="712" alt="スクリーンショット 2024-12-09 21 41 45" src="https://github.com/user-attachments/assets/d0882c3b-e27c-4617-bb06-333aab31e589">
+<img width="800" alt="スクリーンショット 2025-03-05 16 55 03" src="https://github.com/user-attachments/assets/835e279e-eea1-4c32-8c3b-7b1195cc1b41" />
 
 ## URL
 - 開発環境：http://localhost/
