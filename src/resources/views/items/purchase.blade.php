@@ -10,11 +10,20 @@
 <div class="purchase-container">
     <!-- ✅ 左側（商品情報 + 支払い方法 + 配送先） -->
     <div class="purchase-left">
-        <div class="item-detail">
-            <img src="{{ Storage::url($item->image) }}" alt="{{ $item->name }}">
-            <h2>{{ $item->name }}</h2>
-            <p class="price">価格: ¥{{ number_format($item->price) }}</p>
+        <div class="item-info-container">
+            <!-- 商品画像 -->
+            <div class="item-image">
+                <img src="{{ Storage::url($item->image) }}" alt="{{ $item->name }}">
+            </div>
+            <!-- 商品名と価格 -->
+            <div class="item-text">
+                <h2>{{ $item->name }}</h2>
+                <p class="price">¥{{ number_format($item->price) }}</p>
+            </div>
         </div>
+
+        <!-- ✅ 商品情報と支払い方法の間に棒線 -->
+        <div class="divider"></div>
 
         <!-- ✅ 支払い方法 -->
         <form method="POST" action="{{ route('items.completePurchase', $item->id) }}">
@@ -27,37 +36,41 @@
                 </select>
             </div>
 
+            <!-- ✅ 支払い方法と配送先の間に棒線 -->
+            <div class="divider"></div>
+
             <!-- ✅ 配送先情報 -->
             <div class="form-group">
-                <label>配送先</label>
+                <div class="address-header">
+                    <label>配送先</label>
+                    <a href="{{ route('items.changeAddress', $item->id) }}" class="change-address">変更する</a>
+                </div>
                 @if(Auth::check())
                     <p>〒 {{ Auth::user()->postal_code }}</p>
                     <p>{{ Auth::user()->address }}</p>
                     <p>{{ Auth::user()->building ?? '建物名なし' }}</p>
-                    <a href="{{ route('items.changeAddress', $item->id) }}" class="change-address">配送先を変更する</a>
                 @else
                     <p>ログインが必要です。</p>
-                    <a href="{{ route('login.show') }}" class="login-button">ログインする</a> <!-- ✅ 修正 -->
+                    <a href="{{ route('login.show') }}" class="login-button">ログインする</a>
                 @endif
             </div>
-
-            <!-- ✅ 右側（支払い情報 + 合計金額 + 購入ボタン） -->
-            <div class="purchase-right">
-                <h2>購入情報</h2>
-                <div class="summary">
-                    <p>商品代金: <span>¥{{ number_format($item->price) }}</span></p>
-                    <p>支払い方法: <span id="selected-payment">コンビニ支払い</span></p>
-                </div>
-
-                <!-- ✅ 購入ボタン -->
-                @if(Auth::check())
-                    <button type="submit" class="purchase-button">購入する</button>
-                @else
-                    <p class="login-warning">購入にはログインが必要です。</p>
-                    <a href="{{ route('login.show') }}" class="login-button">ログインする</a> <!-- ✅ 修正 -->
-                @endif
-            </div>
-        </form>
     </div>
+
+    <!-- ✅ 右側（購入情報 + 購入ボタン） -->
+    <div class="purchase-right">
+        <div class="summary-box">
+            <p>商品代金: <span>¥{{ number_format($item->price) }}</span></p>
+            <p>支払い方法: <span id="selected-payment">コンビニ支払い</span></p>
+        </div>
+
+        <!-- ✅ 購入ボタン（ボックス外に配置） -->
+        @if(Auth::check())
+            <button type="submit" class="purchase-button">購入する</button>
+        @else
+            <p class="login-warning">購入にはログインが必要です。</p>
+            <a href="{{ route('login.show') }}" class="login-button">ログインする</a>
+        @endif
+    </div>
+    </form>
 </div>
 @endsection

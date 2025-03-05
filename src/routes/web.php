@@ -12,14 +12,15 @@ Route::middleware('auth')->group(function () {
     Route::get('/mypage', [ProfileController::class, 'show'])->name('profile.show'); // プロフィール画面（出品・購入タブ含む）
     Route::get('/mypage/profile', [ProfileController::class, 'edit'])->name('profile.edit'); // プロフィール編集画面
     Route::put('/mypage/profile', [ProfileController::class, 'update'])->name('profile.update'); // プロフィール更新処理
+    Route::get('/mypage/items', [ItemController::class, 'myItems'])->name('profile.items');
 
     // 商品出品関連
     Route::get('/sell', [ItemController::class, 'create'])->name('items.create'); // 商品出品画面
     Route::post('/items', [ItemController::class, 'store'])->name('items.store'); // 商品出品処理
 
     // いいね機能（ログイン必須）
-    Route::post('/item/{item_id}/like', [ItemController::class, 'like'])->name('items.like'); // いいね追加
-    Route::post('/item/{item_id}/unlike', [ItemController::class, 'unlike'])->name('items.unlike'); // いいね解除
+    Route::post('/items/{id}/like', [ItemController::class, 'like'])->name('items.like');
+    Route::post('/items/{id}/unlike', [ItemController::class, 'unlike'])->name('items.unlike');
 });
 
 // ✅ 認証不要なルート（誰でもアクセス可能）

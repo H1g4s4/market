@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
@@ -13,14 +14,18 @@ class ProfileController extends Controller
         $this->middleware('auth');
     }
 
-    // プロフィール編集画面を表示
+    /**
+     * プロフィール編集画面を表示
+     */
     public function edit()
     {
         $user = Auth::user();
         return view('profile.edit', compact('user'));
     }
 
-    // プロフィールを更新
+    /**
+     * プロフィールを更新
+     */
     public function update(Request $request)
     {
         $user = Auth::user();
@@ -45,17 +50,28 @@ class ProfileController extends Controller
         return redirect()->route('profile.edit')->with('success', 'プロフィールを更新しました');
     }
 
-    // プロフィール画面を表示
-    public function show(Request $request) // ✅ Requestを明示的に受け取る
+    /**
+     * プロフィール画面を表示（出品商品・購入商品を取得）
+     */
+    public function show(Request $request)
     {
-        $user = Auth::user(); // ログイン中のユーザー情報を取得
-        $tab = $request->query('tab', 'sell'); // ✅ `tab` のデフォルト値を "sell" に設定
+    $user = Auth::user();
+    $tab = $request->query('tab', 'sell');
 
-        // ✅ 選択されたタブに応じて取得データを切り替える
-        $items = ($tab === 'buy')
-            ? $user->purchasedItems()->with(['seller:id,name'])->get(['id', 'name', 'image'])
-            : $user->listedItems()->with(['buyer:id,name'])->get(['id', 'name', 'image']);
+    if ($tab === 'buy') {
+        // 🔹 購入した商品を取得
+        $items = Item::where('buyer_id', $user->id)
+            ->with('seller:id,name')
+            ->orderBy('created_at', 'desc')
+            ->get();
+        } else {
+        // 🔹 出品した商品を取得（購入済みも含む）
+        $items = Item::where('user_id', $user->id)
+            ->orderBy('created_at', 'desc')
+            ->get();
+        }
 
-        return view('profile.show', compact('user', 'items', 'tab'));
+    return view('profile.show', compact('user', 'items', 'tab'));
     }
+
 }

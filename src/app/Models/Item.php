@@ -4,6 +4,9 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\User;
+use App\Models\Like;
+use App\Models\Comment;
 
 class Item extends Model
 {
@@ -14,10 +17,11 @@ class Item extends Model
         'image',
         'user_id',
         'buyer_id',
-        'categories', // カテゴリ
-        'condition',  // 商品の状態
-        'description', // 商品の説明
-        'price',      // 販売価格
+        'categories',
+        'condition',
+        'description',
+        'price',
+        'category_id',
     ];
 
     protected $casts = [
@@ -25,7 +29,7 @@ class Item extends Model
     ];
 
     // 出品者リレーション
-    public function user()
+    public function seller()
     {
         return $this->belongsTo(User::class, 'user_id');
     }
@@ -42,10 +46,9 @@ class Item extends Model
         return $this->hasMany(Like::class);
     }
 
-    //　コメントリレーション
+    // コメントリレーション
     public function comments()
     {
         return $this->hasMany(Comment::class);
     }
-
 }

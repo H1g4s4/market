@@ -2,6 +2,10 @@
 
 @section('title', '住所の変更')
 
+@push('styles')
+    <link rel="stylesheet" href="{{ asset('css/change.css') }}">
+@endpush
+
 @section('content')
 <div class="address-change-container">
     <h1>住所の変更</h1>
@@ -14,17 +18,20 @@
                 <div class="error">{{ $message }}</div>
             @enderror
         </div>
+
         <div class="form-group">
             <label for="address">住所</label>
-            <textarea id="address" name="address">{{ old('address', $item->delivery_address ?? $user->address) }}</textarea>
+            <input type="text" id="address" name="address" value="{{ old('address', $item->delivery_address ?? $user->address) }}">
             @error('address')
                 <div class="error">{{ $message }}</div>
             @enderror
         </div>
+
         <div class="form-group">
             <label for="building">建物名</label>
             <input type="text" id="building" name="building" value="{{ old('building', $item->delivery_building) }}">
         </div>
+
         <button type="submit" class="update-button">更新する</button>
     </form>
 </div>

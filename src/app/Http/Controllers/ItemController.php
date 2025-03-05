@@ -7,6 +7,9 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use App\Models\Item;
 use App\Models\Like;
+use App\Models\User;
+use App\Models\Category;
+use App\Models\Comment;
 
 class ItemController extends Controller
 {
@@ -16,38 +19,24 @@ class ItemController extends Controller
     public function index(Request $request)
     {
         $search = $request->query('search');
-        $tab = $request->query('tab', 'all'); // デフォルトは全商品
+        $tab = $request->query('tab', 'all');
+
+        $query = Item::with('seller')->orderBy('created_at', 'desc');
 
         if ($tab === 'mylist' && Auth::check()) {
-            // いいねした商品の取得
             $items = Item::whereIn('id', Like::where('user_id', Auth::id())->pluck('item_id'))
-                ->when($search, fn($query) => $query->where('name', 'like', '%' . $search . '%'))
-                ->with('buyer')
+                ->when($search, function ($query) use ($search) {
+                    return $query->where('name', 'like', '%' . $search . '%');
+                })
+                ->with('seller')
                 ->get();
         } else {
-            // 全商品の取得（検索対応）
-            $items = Item::when($search, fn($query) => $query->where('name', 'like', '%' . $search . '%'))
-                ->with('buyer')
-                ->get();
+            if ($search) {
+                $query->where('name', 'like', '%' . $search . '%');
+            }
+
+            $items = $query->get();
         }
-
-        return view('items.index', compact('items', 'search', 'tab'));
-    }
-
-    /**
-     * いいねした商品の一覧を表示
-     */
-    public function mylist(Request $request)
-    {
-        if (!Auth::check()) {
-            return redirect()->route('login');
-        }
-
-        $search = $request->query('search');
-        $items = Item::whereIn('id', Like::where('user_id', Auth::id())->pluck('item_id'))
-            ->when($search, fn($query) => $query->where('name', 'like', '%' . $search . '%'))
-            ->with('buyer')
-            ->get();
 
         return view('items.index', compact('items', 'search', 'tab'));
     }
@@ -75,11 +64,21 @@ class ItemController extends Controller
             'image' => 'required|image|max:2048',
         ]);
 
-        // 画像の保存
         $path = $request->file('image')->store('public/item_images');
 
-        // 商品情報の保存
-        Item::create([
+        // 🔹 最初のカテゴリーを取得（カテゴリがある場合のみ）
+        $category_id = null;
+        if (!empty($request->categories)) {
+            $category_name = $request->categories[0]; // 最初のカテゴリを取得
+            $category = Category::where('name', $category_name)->first();
+
+            if ($category) {
+                $category_id = $category->id;
+            }
+        }
+
+        // 🔹 Itemモデルを使って保存
+        $item = Item::create([
             'categories' => json_encode($request->categories),
             'condition' => $request->condition,
             'name' => $request->name,
@@ -87,6 +86,7 @@ class ItemController extends Controller
             'price' => $request->price,
             'image' => $path,
             'user_id' => Auth::id(),
+            'category_id' => $category_id, // ✅ category_id をセット
         ]);
 
         return redirect()->route('items.index')->with('success', '商品を出品しました');
@@ -98,58 +98,28 @@ class ItemController extends Controller
     public function show($id)
     {
         $item = Item::with(['likes', 'comments.user'])->findOrFail($id);
-        $item->categories = json_decode($item->categories, true);
 
-        // いいね済み判定
+        if (!is_array($item->categories) && !is_null($item->categories)) {
+            $item->categories = json_decode($item->categories, true);
+        }
+
+
+
         $liked = Auth::check() ? $item->likes->contains('user_id', Auth::id()) : false;
 
         return view('items.detail', compact('item', 'liked'));
     }
 
     /**
-     * いいね追加（JavaScriptなし）
+     * 出品した商品の一覧を表示
      */
-    public function like($id)
+    public function myItems()
     {
-        $item = Item::findOrFail($id);
+        $items = Item::where('user_id', Auth::id())
+            ->orderBy('created_at', 'desc')
+            ->get();
 
-        Like::updateOrCreate([
-            'user_id' => Auth::id(),
-            'item_id' => $item->id,
-        ]);
-
-        return redirect()->back()->with('success', 'いいねしました！');
-    }
-
-    /**
-     * いいね解除（JavaScriptなし）
-     */
-    public function unlike($id)
-    {
-        $item = Item::findOrFail($id);
-
-        Like::where('user_id', Auth::id())->where('item_id', $item->id)->delete();
-
-        return redirect()->back()->with('success', 'いいねを解除しました。');
-    }
-
-    /**
-     * 商品にコメントを投稿する処理
-     */
-    public function comment(Request $request, $id)
-    {
-        $request->validate([
-            'comment' => 'required|string|max:255',
-        ]);
-
-        $item = Item::findOrFail($id);
-
-        $item->comments()->create([
-            'user_id' => Auth::id(),
-            'comment' => $request->comment,
-        ]);
-
-        return redirect()->route('items.detail', $id)->with('success', 'コメントを送信しました');
+        return view('profile.show', compact('items'));
     }
 
     /**
@@ -157,7 +127,7 @@ class ItemController extends Controller
      */
     public function purchase($item_id)
     {
-        $item = Item::with('user')->findOrFail($item_id);
+        $item = Item::findOrFail($item_id);
         $user = Auth::user();
 
         return view('items.purchase', compact('item', 'user'));
@@ -169,8 +139,34 @@ class ItemController extends Controller
     public function changeAddress($item_id)
     {
         $item = Item::findOrFail($item_id);
-        $user = Auth::user(); //ユーザー情報を取得
-        return view('items.change_address', compact('item','user'));
+        $user = Auth::user();
+
+        return view('items.change_address', compact('item', 'user'));
+    }
+
+    /**
+     * 配送先住所を更新する処理
+     */
+    public function updateAddress(Request $request, $item_id)
+    {
+        $request->validate([
+            'postal_code' => 'required|string|regex:/^\d{3}-\d{4}$/',
+            'address' => 'required|string|max:255',
+            'building' => 'nullable|string|max:255',
+        ],[
+            'postal_code.required' => '郵便番号を入力してください。',
+            'postal_code.regex' => '郵便番号は「123-4567」の形式で入力してください。',
+            'address.required' => '住所を入力してください。',
+            'address.max' => '住所は最大255文字まで入力できます。',
+        ]);
+
+        $user = Auth::user();
+        $user->postal_code = $request->postal_code;
+        $user->address = $request->address;
+        $user->building = $request->building;
+        $user->save();
+
+        return redirect()->route('items.purchase', $item_id)->with('success', '配送先住所が更新されました。');
     }
 
     /**
@@ -180,40 +176,67 @@ class ItemController extends Controller
     {
         $item = Item::findOrFail($item_id);
 
-        $item->update([
-            'buyer_id' => Auth::id(),
-            'delivery_postal_code' => $request->input('postal_code', $item->delivery_postal_code),
-            'delivery_address' => $request->input('address', $item->delivery_address),
-            'delivery_building' => $request->input('building', $item->delivery_building),
-        ]);
+        // すでに購入されているかチェック
+        if ($item->buyer_id !== null) {
+            return redirect()->route('items.detail', $item->id)->with('error', 'この商品はすでに購入されています。');
+        }
 
-        return redirect()->route('items.index')->with('success', '購入が完了しました！');
+        // 購入処理
+        $item->buyer_id = Auth::id();
+        $item->save();
+
+        return redirect()->route('items.index')->with('success', '商品を購入しました！');
     }
 
     /**
-     * 配送先住所を更新する処理
+     * 商品に「いいね」を追加する処理
      */
-    public function updateAddress(Request $request, $item_id)
+    public function like($id)
+    {
+        $item = Item::findOrFail($id);
+
+        // すでに「いいね」していない場合のみ追加
+        if (!Like::where('user_id', Auth::id())->where('item_id', $id)->exists()) {
+            Like::create([
+                'user_id' => Auth::id(),
+                'item_id' => $id,
+            ]);
+        }
+
+        return back()->with('success', '商品を「いいね」しました');
+    }
+
+    /**
+     * 商品の「いいね」を解除する処理
+     */
+    public function unlike($id)
+    {
+        $item = Item::findOrFail($id);
+
+        // 「いいね」を削除
+        Like::where('user_id', Auth::id())->where('item_id', $id)->delete();
+
+        return back()->with('success', '「いいね」を解除しました');
+    }
+
+    /**
+     * 商品にコメントを追加する処理
+     */
+    public function comment(Request $request, $id)
     {
         $request->validate([
-            'postal_code' => 'required|string|max:10',
-            'address' => 'required|string|max:255',
-            'building' => 'nullable|string|max:255',
-        ], [
-            'postal_code.required' => '郵便番号を入力してください。',
-            'address.required' => '住所を入力してください。',
-            'postal_code.max' => '郵便番号は10文字以内で入力してください。',
-            'address.max' => '住所は255文字以内で入力してください。',
+            'comment' => 'required|string|max:500',
         ]);
 
-        $item = Item::findOrFail($item_id);
+        $item = Item::findOrFail($id);
 
-        $item->update([
-            'delivery_postal_code' => $request->postal_code,
-            'delivery_address' => $request->address,
-            'delivery_building' => $request->building,
+        Comment::create([
+            'user_id' => Auth::id(),
+            'item_id' => $id,
+            'comment' => $request->comment,
         ]);
 
-        return redirect()->route('items.purchase', $item->id)->with('success', '住所を更新しました！');
+        return back()->with('success', 'コメントを追加しました');
     }
+
 }

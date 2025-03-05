@@ -1,86 +1,114 @@
-/* ✅ プロフィール編集ページのレイアウト */
+/* ✅ 全画面を使うレイアウトに変更 */
 .profile-edit-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    max-width: 700px;
-    /* 🔼 幅をさらに広げる（600px → 700px） */
-    margin: 80px auto;
-    padding: 30px;
+    width: 100%;
+    margin: 0px auto;
+    padding: 60px 15%;
+    text-align: center;
 }
 
-/* ✅ タイトル */
+/* ✅ タイトルの位置をさらに上げる */
 .profile-title {
-    font-size: 28px;
+    font-size: 36px;
     font-weight: bold;
     text-align: center;
-    margin-bottom: 30px;
+    margin-bottom: 50px;
 }
 
-/* ✅ フォーム全体のスタイル */
+/* ✅ フォームのレイアウト（送信ボタンの幅を統一） */
 .profile-form {
     width: 100%;
+    max-width: 700px;
+    /* フォームの幅を調整 */
+    margin: 0 auto;
     display: flex;
     flex-direction: column;
-    gap: 20px;
+    align-items: stretch;
+    /* ✅ これが重要（中央配置をやめて、幅を揃える） */
+    gap: 35px;
 }
 
 /* ✅ 各フォームグループ */
 .form-group {
-    display: flex;
-    flex-direction: column;
+    text-align: left;
     width: 100%;
 }
 
+/* ✅ ラベルデザイン */
 .form-group label {
-    font-size: 16px;
+    font-size: 18px;
     font-weight: bold;
-    margin-bottom: 6px;
+    margin-bottom: 10px;
+    display: block;
 }
 
-/* ✅ 入力フィールド */
+/* ✅ 入力フィールド（フォームの幅と統一） */
 .form-group input {
     width: 100%;
-    padding: 14px;
+    padding: 16px;
     border: 1px solid #ddd;
     border-radius: 8px;
-    font-size: 17px;
+    font-size: 18px;
+    box-sizing: border-box;
+    /* ✅ これを追加（幅ズレ防止） */
 }
 
-/* ✅ エラーメッセージ */
-.error {
-    font-size: 13px;
-    color: red;
-    margin-top: 5px;
-}
-
-/* ✅ プロフィール画像 */
+/* ✅ プロフィール画像セクション */
 .profile-image-section {
-    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: left;
+    gap: 25px;
+    margin-bottom: 30px;
 }
 
-.profile-image-preview img {
-    width: 140px;
-    /* 🔼 画像サイズをさらに大きく（120px → 140px） */
-    height: 140px;
+/* ✅ プロフィール画像の枠を正円にし、グレー背景を設定 */
+.profile-image-preview {
+    width: 200px;
+    height: 200px;
     border-radius: 50%;
-    border: 2px solid #ddd;
-    margin-bottom: 15px;
+    border: 2px solid #D9D9D9;
+    background-color: #D9D9D9;
+    /* グレーの背景 */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    position: relative;
 }
 
-/* ✅ 画像アップロードボタン */
+/* ✅ 画像がある場合は表示、ない場合はテキスト */
+.profile-image-preview img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: none;
+    /* 初期状態では非表示 */
+}
+
+/* ✅ デフォルトテキスト（プロフィール画像が未設定の場合） */
+.profile-image-placeholder {
+    font-size: 14px;
+    color: white;
+    position: absolute;
+}
+
+/* ✅ 画像選択ボタン */
 .custom-file-upload {
     display: inline-block;
-    padding: 14px 18px;
-    background-color: #ff6f61;
-    color: white;
-    border-radius: 8px;
+    padding: 14px 20px;
+    border: 2px solid #ff5555;
+    color: #ff5555;
+    background-color: white;
+    border-radius: 10px;
     cursor: pointer;
-    font-size: 15px;
+    font-size: 16px;
+    font-weight: bold;
+    transition: background-color 0.3s, color 0.3s;
 }
 
 .custom-file-upload:hover {
-    background-color: #e55b4d;
+    background-color: #ff5555;
+    color: white;
 }
 
 /* ✅ 隠しファイル入力 */
@@ -88,17 +116,21 @@
     display: none;
 }
 
-/* ✅ 送信ボタン */
+/* ✅ 送信ボタン（入力ボックスと完全に幅を揃える） */
 .submit-button {
     width: 100%;
-    padding: 16px;
-    background-color: #ff6f61;
+    /* ✅ 親要素のフォームの幅と完全に統一 */
+    padding: 18px;
+    background-color: #ff5555;
     color: white;
     font-size: 20px;
     font-weight: bold;
     border: none;
     border-radius: 8px;
     cursor: pointer;
+    transition: background-color 0.3s;
+    box-sizing: border-box;
+    /* ✅ これを追加（幅ズレ防止） */
 }
 
 .submit-button:hover {
@@ -116,20 +148,20 @@
 }
 
 /* ✅ レスポンシブ対応 */
-@media screen and (max-width: 1540px) {
-    .profile-edit-container {
-        max-width: 700px;
-    }
-}
-
 @media screen and (max-width: 850px) {
     .profile-edit-container {
-        max-width: 95%;
+        padding: 30px;
+    }
+
+    .profile-image-section {
+        flex-direction: column;
+        align-items: center;
+        gap: 20px;
     }
 
     .profile-image-preview img {
-        width: 120px;
-        height: 120px;
+        width: 140px;
+        height: 140px;
     }
 
     .custom-file-upload {

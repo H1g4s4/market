@@ -12,12 +12,20 @@
 .profile-header {
     display: flex;
     align-items: center;
-    gap: 20px;
     margin-bottom: 20px;
     padding-left: 10%;
-    /* 左寄せに変更 */
+    padding-right: 10%;
 }
 
+/* ✅ ユーザー情報 */
+.profile-info {
+    display: flex;
+    align-items: center;
+    gap: 120px;
+    /* ✅ 画像とユーザー名の間隔を広げる */
+}
+
+/* ✅ プロフィール画像 */
 .profile-image img {
     width: 120px;
     height: 120px;
@@ -25,23 +33,35 @@
     border: 2px solid #ddd;
 }
 
+/* ✅ ユーザー名 */
 .profile-info h1 {
-    font-size: 24px;
+    font-size: 32px;
     color: #333;
+    margin-top: 10px;
+    margin-left: 70px;
+    /* ✅ 画像との間隔を広げる */
 }
 
+/* ✅ プロフィール編集ボタン */
 .edit-button {
     display: inline-block;
-    padding: 10px 20px;
-    background-color: #ff6f61;
-    color: white;
+    padding: 8px 16px;
+    color: #ff5555;
     text-decoration: none;
-    border-radius: 8px;
-    transition: background-color 0.3s;
+    border: 2px solid #ff5555;
+    /* ✅ 文字色と同じ色で枠線を追加 */
+    border-radius: 10px;
+    /* ✅ 角を丸くする */
+    font-size: 24px;
+    font-weight: bold;
+    transition: background-color 0.3s, color 0.3s;
+    margin-left: 50px;
+    /* ✅ ユーザー名との間隔を広げる */
 }
 
 .edit-button:hover {
-    background-color: #e55b4d;
+    background-color: #ff5555;
+    color: white;
 }
 
 /* ✅ タブメニュー */
@@ -51,19 +71,16 @@
     border-bottom: 2px solid #ddd;
     margin-bottom: 20px;
     padding-left: 10%;
-    /* 左寄せ */
     gap: 10px;
 }
 
 .tabs a {
     padding: 10px 20px;
     text-decoration: none;
-    background-color: #f9f9f9;
-    border: 1px solid #ddd;
-    border-bottom: none;
-    color: #555;
+    color: #5F5F5F;
     font-weight: bold;
     transition: background-color 0.3s, color 0.3s;
+    border: none;
 }
 
 .tabs a:hover {
@@ -72,8 +89,7 @@
 
 .tabs a.active {
     background-color: #fff;
-    color: #ff6f61;
-    border-bottom: 2px solid #ff6f61;
+    color: #ff0000;
 }
 
 /* ✅ 商品リスト */
@@ -83,21 +99,24 @@
     gap: 20px;
     padding-left: 10%;
     padding-right: 10%;
-    /* 画面いっぱい使う */
 }
 
 .item img {
     width: 100%;
-    height: auto;
+    height: 250px;
     border-radius: 8px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    max-width: 250px;
+        /* 商品の最大幅を統一 */
 }
 
 .item p {
+    text-align: left !important;
+    /* ✅ 左揃えに修正 */
     text-align: center;
     margin-top: 10px;
-    font-size: 14px;
-    color: #555;
+    font-size: 20px;
+    color: #5F5F5F;
 }
 
 /* ✅ PC (1400-1540px) */
@@ -121,8 +140,21 @@
         height: 100px;
     }
 
+    .profile-info {
+        flex-direction: column;
+        gap: 10px;
+        /* ✅ モバイルでは間隔を調整 */
+    }
+
     .profile-info h1 {
         font-size: 22px;
+    }
+
+    .edit-button {
+        position: static;
+        margin-left: 0;
+        margin-top: 10px;
+        /* ✅ モバイルでは少し余白を追加 */
     }
 
     .tabs {
