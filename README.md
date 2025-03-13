@@ -46,7 +46,8 @@ php artisan migrate
 
 7. シーディングの実行
 ``` bash
-php artisan db:seedphp artisan storage:link
+php artisan db:seed
+php artisan storage:link
 ```
 
 ## 使用技術
