@@ -1,0 +1,237 @@
+/* ✅ 全体のレイアウト（中央寄せ・画面を3分割して中央使用） */
+.item-create-container {
+    max-width: 600px;
+    margin: 80px auto;
+    padding: 20px;
+}
+
+/* ✅ タイトル（センター配置） */
+.title {
+    text-align: center;
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+/* ✅ セクションタイトル */
+.section-title {
+    font-size: 18px;
+    font-weight: bold;
+    margin-top: 30px;
+    padding-bottom: 5px;
+    border-bottom: 2px solid #ddd;
+}
+
+/* ✅ フォームグループ */
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 5px;
+    text-align: left;
+}
+
+/* ✅ ボックスのサイズを統一 */
+.form-group input,
+.form-group select,
+.form-group textarea {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #000;
+    /* ✅ 黒の直線ボーダー */
+    border-radius: 6px;
+    font-size: 16px;
+    box-sizing: border-box;
+    height: 45px;
+    /* ✅ すべてのボックスの高さを統一 */
+}
+
+/* ✅ テキストエリアの高さを統一 */
+.form-group textarea {
+    height: 120px;
+    resize: none;
+}
+
+/* ✅ 商品画像ボックス（黒枠 & 直線） */
+.image-upload-box {
+    width: 100%;
+    height: 180px;
+    border: 2px solid #000;
+    /* ✅ 黒の直線ボーダー */
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+    background-color: #fff;
+}
+
+/* ✅ 画像を選択するボタン */
+.image-placeholder {
+    border: 2px solid #ff5555;
+    /* ✅ 赤枠 */
+    color: #ff5555;
+    font-size: 16px;
+    font-weight: bold;
+    padding: 10px 20px;
+    border-radius: 6px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* ✅ 画像が選択されたら表示 */
+.image-upload-box img {
+    max-width: 100%;
+    max-height: 100%;
+    display: none;
+    /* ✅ 初期状態で非表示 */
+    border-radius: 6px;
+}
+
+/* ✅ ファイル入力を非表示 */
+#image {
+    display: none;
+}
+
+/* ✅ ブランド入力欄 */
+.brand-input {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #000;
+    border-radius: 6px;
+    font-size: 16px;
+    box-sizing: border-box;
+    height: 45px;
+}
+
+/* ✅ カテゴリーボタン */
+.category-selection .category-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.category-btn {
+    padding: 10px 15px;
+    border: 1px solid #ff5555;
+    color: #ff5555;
+    border-radius: 20px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: background-color 0.2s, color 0.2s;
+    display: flex;
+    align-items: center;
+}
+
+/* ✅ カテゴリー選択時の色変更 */
+.category-input {
+    display: none;
+}
+
+.category-input:checked+span {
+    background-color: #ff5555;
+    color: white;
+    border-radius: 20px;
+    padding: 10px 15px;
+}
+
+/* ✅ 販売価格ボックスのサイズ統一 */
+.price-group {
+    display: flex;
+    flex-direction: column;
+}
+
+/* ✅ 販売価格の入力ボックス */
+.price-input {
+    display: flex;
+    align-items: center;
+    border: 1px solid #000;
+    /* ✅ 黒の直線ボーダー */
+    border-radius: 6px;
+    width: 100%;
+    height: 45px;
+    /* ✅ 他のボックスと統一 */
+    padding: 0 12px;
+    /* ✅ 余白を調整 */
+    box-sizing: border-box;
+}
+
+.price-input span {
+    font-size: 16px;
+    margin-right: 5px;
+}
+
+.price-input input {
+    border: none;
+    font-size: 16px;
+    width: 100%;
+    height: 100%;
+    /* ✅ 他のボックスと同じ高さを維持 */
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* ✅ 出品ボタン（幅いっぱい & サイズ統一） */
+.submit-button {
+    display: block;
+    width: 100%;
+    height: 45px;
+    margin: 20px auto;
+    padding: 12px;
+    background-color: #ff5555;
+    color: white;
+    text-align: center;
+    border-radius: 6px;
+    font-size: 18px;
+    font-weight: bold;
+    border: none;
+    cursor: pointer;
+}
+
+.submit-button:hover {
+    background-color: #e55b4d;
+}
+
+/* ✅ エラーメッセージを赤字に */
+.error {
+    color: red;
+    font-size: 14px;
+    margin-top: 5px;
+}
+
+/* ✅ PC (1400-1540px) で崩れない */
+@media screen and (max-width: 1540px) {
+    .item-create-container {
+        max-width: 50%;
+    }
+}
+
+/* ✅ タブレット (768-850px) で崩れない */
+@media screen and (max-width: 850px) {
+    .item-create-container {
+        max-width: 80%;
+        padding: 15px;
+    }
+
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+        font-size: 14px;
+    }
+
+    .category-selection .category-buttons {
+        gap: 5px;
+    }
+
+    .submit-button {
+        width: 100%;
+    }
+}

@@ -1,0 +1,130 @@
+/* ✅ ヘッダーのレイアウト調整 */
+.header-container {
+    display: flex;
+    justify-content: space-between;
+    /* ✅ 左右に均等配置 */
+    align-items: center;
+    /* ✅ 垂直中央揃え */
+    width: 100%;
+    /* ✅ ヘッダーを画面幅いっぱいに */
+    padding: 10px 40px;
+    /* ✅ 左右の余白を増やす */
+    background-color: #010000;
+    /* ✅ 背景色を黒に */
+    border-bottom: 1px solid #ddd;
+    /* ✅ 下に区切り線 */
+    position: fixed;
+    /* ✅ 常に上部に固定 */
+    top: 0;
+    left: 0;
+    z-index: 1000;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    /* ✅ 軽い影 */
+    height: 70px;
+    /* ✅ ヘッダーの高さ固定 */
+    box-sizing: border-box;
+}
+
+/* ✅ ロゴの配置 */
+.header-container .logo {
+    display: flex;
+    align-items: center;
+}
+
+.header-container .logo img {
+    height: 40px;
+}
+
+/* ✅ 検索ボックス */
+.header-container .search-box {
+    flex-grow: 1;
+    max-width: 600px;
+    margin: 0 40px;
+    /* ✅ 左右の余白を増やす */
+}
+
+.header-container .search-box input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 14px;
+}
+
+/* ✅ ボタン配置 */
+.header-buttons {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+/* ✅ ヘッダーボタン共通 */
+.header-buttons a {
+    text-decoration: none;
+    color: #fafbfc;
+    font-weight: bold;
+    padding: 8px 15px;
+    border: 1px solid #fafbfc;
+    border-radius: 5px;
+    transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out;
+}
+
+/* ✅ ボタンのホバー時 */
+.header-buttons a:hover {
+    background-color: #fafbfc;
+    color: #010000;
+}
+
+/* ✅ 出品ボタン */
+.sell-button {
+    background-color: white;
+    border: none;
+    color: black !important;
+    font-size: 14px;
+}
+
+.sell-button:hover {
+    background-color: #e55b4d;
+}
+
+/* ✅ メインコンテンツの位置調整 */
+.content-container {
+    margin-top: 80px;
+    padding: 20px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* ✅ レスポンシブ対応 */
+@media screen and (max-width: 1024px) {
+    .header-container {
+        padding: 10px 20px;
+    }
+
+    .header-container .search-box {
+        max-width: 400px;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .header-container {
+        flex-wrap: wrap;
+        height: auto;
+    }
+
+    .header-container .search-box {
+        max-width: 100%;
+        margin: 10px 0;
+    }
+
+    .header-buttons {
+        gap: 10px;
+    }
+
+    .header-buttons a {
+        font-size: 12px;
+        padding: 5px 10px;
+    }
+}
